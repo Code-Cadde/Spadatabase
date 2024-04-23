@@ -1,0 +1,41 @@
+package com.bookings.bookings.controllers;
+
+import java.util.List;
+
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.bookings.bookings.models.Booking;
+import com.bookings.bookings.services.BookingService;
+
+@RestController
+@CrossOrigin(origins = "http://localhost:5173")
+public class BookingController {
+
+    private BookingService bookingService;
+
+    public BookingController(BookingService bookingService) {
+        this.bookingService = bookingService;
+    }
+
+    @GetMapping
+    public String getRoot() {
+        return "{'Hello': 'World'}";
+    }
+
+    @PostMapping("/booking")
+    public Booking addBooking(@RequestBody Booking booking) {
+        return bookingService.addBooking(booking);
+    }
+
+    @GetMapping("/bookings")
+    public List<Booking> getBookings() {
+        return bookingService.getBookings();
+    }
+
+    
+    
+}
